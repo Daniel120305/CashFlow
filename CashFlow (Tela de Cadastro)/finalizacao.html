@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastre-se no Cash Flow</title>
+    <link rel="stylesheet" href="finalizacao.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Cadastre-se no Cash Flow</h1>
+            <p>Sua jornada financeira começa aqui. Preencha os dados abaixo para criar sua conta.</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="step completed">
+                <div class="step-number">✓</div>
+                <div class="step-label">Dados Pessoais</div>
+            </div>
+            <div class="step-connector active"></div>
+            <div class="step completed">
+                <div class="step-number">✓</div>
+                <div class="step-label">Endereço</div>
+            </div>
+            <div class="step-connector active"></div>
+            <div class="step active">
+                <div class="step-number">3</div>
+                <div class="step-label">Finalização</div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <div class="section-title">Dados Adicionais</div>
+            
+            <form id="cadastroForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="renda">Renda Mensal</label>
+                        <input type="text" id="renda" placeholder="Digite sua renda">
+                    </div>
+                    <div class="form-group">
+                        <label for="despesas">Média de Despesas Mensal</label>
+                        <input type="text" id="despesas" placeholder="Digite suas despesas">
+                    </div>
+                </div>
+
+                <div class="checkbox-container idade-container">
+                    <input type="checkbox" id="menor-18">
+                    <label for="menor-18">Menor de 18 anos</label>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tipo-investimento">Tipo de Investimento</label>
+                        <select id="tipo-investimento">
+                            <option value="">Selecione</option>
+                            <option value="conservador">Conservador</option>
+                            <option value="moderado">Moderado</option>
+                            <option value="arrojado">Arrojado</option>
+                            <option value="agressivo">Agressivo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="faixa-investimento">Faixa de Investimento</label>
+                        <select id="faixa-investimento">
+                            <option value="">Selecione</option>
+                            <option value="ate-1000">Até R$ 1.000</option>
+                            <option value="1000-5000">R$ 1.000 - R$ 5.000</option>
+                            <option value="5000-10000">R$ 5.000 - R$ 10.000</option>
+                            <option value="10000-50000">R$ 10.000 - R$ 50.000</option>
+                            <option value="acima-50000">Acima de R$ 50.000</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="objetivo">Objetivo</label>
+                    <textarea id="objetivo" rows="4" placeholder="Fale um pouco do seu objetivo em ter assistência financeira, suas dificuldades, facilidades, etc."></textarea>
+                </div>
+
+                <div class="login-link">
+                    <span>Já possui uma conta? <a href="#">Faça login</a></span>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="btn-secondary" id="voltarBtn">Passo Anterior</button>
+                    <button type="submit" class="btn-finalizar" id="finalizarBtn">Finalizar Cadastro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="finalizacaojs.js"></script>
+</body>
+</html>
