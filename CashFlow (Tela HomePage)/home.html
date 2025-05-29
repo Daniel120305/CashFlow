@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanças Pessoais</title>
+    <link rel="stylesheet" href="homeStyle.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Controle Financeiro</h1>
+            <p>Gerencie suas finanças de forma inteligente</p>
+        </header>
+
+        <nav class="navigation">
+            <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+            <button class="nav-btn" data-tab="tools">🔧 Ferramentas</button>
+        </nav>
+
+        <div id="dashboard" class="tab-content active">
+            <section class="summary">
+                <div class="card">
+                    <h3>💵 Receitas</h3>
+                    <p class="income-total">R$ 0,00</p>
+                </div>
+                <div class="card">
+                    <h3>💸 Despesas</h3>
+                    <p class="expense-total">R$ 0,00</p>
+                </div>
+                <div class="card balance-card">
+                    <h3>💳 Saldo</h3>
+                    <p class="balance-total">R$ 0,00</p>
+                </div>
+            </section>
+
+            <section class="transaction-form">
+                <h2>Nova Transação</h2>
+                <form id="transactionForm">
+                    <div class="form-group">
+                        <label for="description">Descrição:</label>
+                        <input type="text" id="description" required placeholder="Ex: Salário, Aluguel, Mercado...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="amount">Valor:</label>
+                        <input type="number" id="amount" step="0.01" required placeholder="0,00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Categoria:</label>
+                        <select id="category" required>
+                            <option value="">Selecione uma categoria</option>
+                            <optgroup label="Receitas">
+                                <option value="salario">Salário</option>
+                                <option value="freelance">Freelance</option>
+                                <option value="investimentos">Investimentos</option>
+                                <option value="outros-receitas">Outros</option>
+                            </optgroup>
+                            <optgroup label="Despesas">
+                                <option value="alimentacao">Alimentação</option>
+                                <option value="transporte">Transporte</option>
+                                <option value="moradia">Moradia</option>
+                                <option value="saude">Saúde</option>
+                                <option value="educacao">Educação</option>
+                                <option value="lazer">Lazer</option>
+                                <option value="outros-despesas">Outros</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="type">Tipo:</label>
+                        <select id="type" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="income">Receita</option>
+                            <option value="expense">Despesa</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Data:</label>
+                        <input type="date" id="date" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Adicionar Transação</button>
+                </form>
+            </section>
+
+            <section class="transactions">
+                <div class="transactions-header">
+                    <h2>Histórico de Transações</h2>
+                    <div class="filters">
+                        <select id="filterType">
+                            <option value="all">Todas</option>
+                            <option value="income">Receitas</option>
+                            <option value="expense">Despesas</option>
+                        </select>
+                        <button id="clearAll" class="btn-danger">Limpar Tudo</button>
+                    </div>
+                </div>
+                <div class="transaction-list" id="transactionList">
+                    <div class="empty-state">
+                        <p>📊 Nenhuma transação encontrada</p>
+                        <p>Adicione sua primeira transação acima!</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="charts">
+                <h2>Resumo por Categoria</h2>
+                <div class="chart-container">
+                    <canvas id="categoryChart" width="400" height="200"></canvas>
+                </div>
+            </section>
+        </div>
+
+        <div id="tools" class="tab-content">
+            <section class="tools-grid">
+                <div class="tool-card">
+                    <h3>💼 Calculadora de Salário</h3>
+                    <p>Calcule seu salário líquido a partir do bruto</p>
+                    
+                    <div class="form-group">
+                        <label for="grossSalary">Salário Bruto (R$):</label>
+                        <input type="number" id="grossSalary" step="0.01" placeholder="5000.00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dependents">Número de Dependentes:</label>
+                        <input type="number" id="dependents" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="healthPlan">Plano de Saúde (R$):</label>
+                        <input type="number" id="healthPlan" step="0.01" value="0" placeholder="0.00">
+                    </div>
+                    
+                    <button class="btn-primary" onclick="financeManager.calculateSalary()">Calcular</button>
+                    
+                    <div id="salaryResult" class="result-box" style="display: none;">
+                        <h4>Resultado:</h4>
+                        <div class="result-item">
+                            <span>INSS:</span>
+                            <span id="inssValue">R$ 0,00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>IRRF:</span>
+                            <span id="irrfValue">R$ 0,00</span>
+                        </div>
+                        <div class="result-item total">
+                            <span>Salário Líquido:</span>
+                            <span id="netSalary">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>📈 Calculadora de Juros Compostos</h3>
+                    <p>Veja como seus investimentos podem crescer</p>
+                    
+                    <div class="form-group">
+                        <label for="initialAmount">Valor Inicial (R$):</label>
+                        <input type="number" id="initialAmount" step="0.01" placeholder="1000.00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="monthlyContribution">Aporte Mensal (R$):</label>
+                        <input type="number" id="monthlyContribution" step="0.01" placeholder="500.00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interestRate">Taxa de Juros (% ao ano):</label>
+                        <input type="number" id="interestRate" step="0.01" placeholder="10.5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="timePeriod">Período (anos):</label>
+                        <input type="number" id="timePeriod" min="1" placeholder="5">
+                    </div>
+                    
+                    <button class="btn-primary" onclick="financeManager.calculateCompoundInterest()">Calcular</button>
+                    
+                    <div id="interestResult" class="result-box" style="display: none;">
+                        <h4>Resultado:</h4>
+                        <div class="result-item">
+                            <span>Total Investido:</span>
+                            <span id="totalInvested">R$ 0,00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Juros Ganhos:</span>
+                            <span id="interestEarned">R$ 0,00</span>
+                        </div>
+                        <div class="result-item total">
+                            <span>Valor Final:</span>
+                            <span id="finalAmount">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>🏠 Calculadora de Financiamento</h3>
+                    <p>Calcule as parcelas do seu financiamento</p>
+                    
+                    <div class="form-group">
+                        <label for="loanAmount">Valor do Empréstimo (R$):</label>
+                        <input type="number" id="loanAmount" step="0.01" placeholder="200000.00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loanRate">Taxa de Juros (% ao mês):</label>
+                        <input type="number" id="loanRate" step="0.01" placeholder="0.8">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loanPeriod">Prazo (meses):</label>
+                        <input type="number" id="loanPeriod" min="1" placeholder="360">
+                    </div>
+                    
+                    <button class="btn-primary" onclick="financeManager.calculateLoan()">Calcular</button>
+                    
+                    <div id="loanResult" class="result-box" style="display: none;">
+                        <h4>Resultado:</h4>
+                        <div class="result-item">
+                            <span>Parcela Mensal:</span>
+                            <span id="monthlyPayment">R$ 0,00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Total a Pagar:</span>
+                            <span id="totalPayment">R$ 0,00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Total de Juros:</span>
+                            <span id="totalInterest">R$ 0,00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <h3>💱 Conversor de Moedas</h3>
+                    <p>Converta valores entre diferentes moedas</p>
+                    
+                    <div class="form-group">
+                        <label for="amountToConvert">Valor:</label>
+                        <input type="number" id="amountToConvert" step="0.01" placeholder="100.00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fromCurrency">De:</label>
+                        <select id="fromCurrency">
+                            <option value="BRL">Real (BRL)</option>
+                            <option value="USD">Dólar (USD)</option>
+                            <option value="EUR">Euro (EUR)</option>
+                            <option value="GBP">Libra (GBP)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="toCurrency">Para:</label>
+                        <select id="toCurrency">
+                            <option value="USD">Dólar (USD)</option>
+                            <option value="BRL">Real (BRL)</option>
+                            <option value="EUR">Euro (EUR)</option>
+                            <option value="GBP">Libra (GBP)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="financeManager.convertCurrency()">Converter</button>
+                    
+                    <div id="currencyResult" class="result-box" style="display: none;">
+                        <h4>Resultado:</h4>
+                        <div class="result-item total">
+                            <span>Valor Convertido:</span>
+                            <span id="convertedAmount">$ 0,00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Taxa Utilizada:</span>
+                            <span id="exchangeRate">1.00</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>
