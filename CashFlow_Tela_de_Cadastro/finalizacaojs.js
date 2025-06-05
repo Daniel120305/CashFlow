@@ -72,7 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
             finalizarBtn.textContent = 'Finalizar Cadastro';
             
             // Redirecionar para a página inicial após cadastro
-            // window.location.href = 'inicio.html';
+            window.location.href = 'CashFlow_Tela_Login/login.html';
+
         }, 2000);
     });
 
