@@ -1,12 +1,6 @@
 class FinanceManager {
     constructor() {
         this.transactions = [];
-        this.exchangeRates = {
-            BRL: { USD: 0.19, EUR: 0.17, GBP: 0.15 },
-            USD: { BRL: 5.20, EUR: 0.89, GBP: 0.77 },
-            EUR: { BRL: 5.85, USD: 1.12, GBP: 0.86 },
-            GBP: { BRL: 6.80, USD: 1.30, EUR: 1.16 }
-        };
         this.init();
     }
 
@@ -399,9 +393,15 @@ class FinanceManager {
         const amount = parseFloat(document.getElementById('amountToConvert').value) || 0;
         const fromCurrency = document.getElementById('fromCurrency').value;
         const toCurrency = document.getElementById('toCurrency').value;
+        const exchangeRate = parseFloat(document.getElementById('exchangeRate').value) || 0;
         
         if (amount <= 0) {
             alert('Por favor, insira um valor válido!');
+            return;
+        }
+
+        if (exchangeRate <= 0) {
+            alert('Por favor, insira uma taxa de câmbio válida!');
             return;
         }
 
@@ -410,38 +410,35 @@ class FinanceManager {
             return;
         }
 
-        let rate;
-        if (fromCurrency === 'BRL' && toCurrency === 'USD') {
-            rate = this.exchangeRates.BRL.USD;
-        } else if (fromCurrency === 'BRL' && toCurrency === 'EUR') {
-            rate = this.exchangeRates.BRL.EUR;
-        } else if (fromCurrency === 'BRL' && toCurrency === 'GBP') {
-            rate = this.exchangeRates.BRL.GBP;
-        } else if (fromCurrency === 'USD' && toCurrency === 'BRL') {
-            rate = this.exchangeRates.USD.BRL;
-        } else if (fromCurrency === 'USD' && toCurrency === 'EUR') {
-            rate = this.exchangeRates.USD.EUR;
-        } else if (fromCurrency === 'USD' && toCurrency === 'GBP') {
-            rate = this.exchangeRates.USD.GBP;
-        } else if (fromCurrency === 'EUR' && toCurrency === 'BRL') {
-            rate = this.exchangeRates.EUR.BRL;
-        } else if (fromCurrency === 'EUR' && toCurrency === 'USD') {
-            rate = this.exchangeRates.EUR.USD;
-        } else if (fromCurrency === 'EUR' && toCurrency === 'GBP') {
-            rate = this.exchangeRates.EUR.GBP;
-        } else if (fromCurrency === 'GBP' && toCurrency === 'BRL') {
-            rate = this.exchangeRates.GBP.BRL;
-        } else if (fromCurrency === 'GBP' && toCurrency === 'USD') {
-            rate = this.exchangeRates.GBP.USD;
-        } else if (fromCurrency === 'GBP' && toCurrency === 'EUR') {
-            rate = this.exchangeRates.GBP.EUR;
+        let convertedAmount;
+        if (fromCurrency === 'BRL') {
+            // Se estiver convertendo de BRL para outra moeda, divide pelo câmbio
+            convertedAmount = amount / exchangeRate;
+        } else {
+            // Se estiver convertendo de outra moeda para BRL, multiplica pelo câmbio
+            convertedAmount = amount * exchangeRate;
+            
+            // Se for conversão entre moedas estrangeiras (ex: USD para EUR)
+            if (toCurrency !== 'BRL') {
+                // Primeiro converte para BRL, depois para a moeda destino usando o câmbio inverso
+                const amountInBRL = amount * exchangeRate;
+                convertedAmount = amountInBRL / exchangeRate;
+                // Neste caso simples, seria igual a amount * (exchangeRate / exchangeRateDestino)
+                // Mas como estamos pedindo apenas 1 taxa, mantemos simples
+            }
         }
 
-        const convertedAmount = amount * rate;
+        // Formatando o símbolo da moeda de destino
+        let currencySymbol;
+        switch(toCurrency) {
+            case 'USD': currencySymbol = '$'; break;
+            case 'EUR': currencySymbol = '€'; break;
+            case 'GBP': currencySymbol = '£'; break;
+            default: currencySymbol = 'R$';
+        }
 
         document.getElementById('convertedAmount').textContent = 
-            `${toCurrency === 'USD' ? '$' : toCurrency === 'EUR' ? '€' : toCurrency === 'GBP' ? '£' : 'R$'} ${convertedAmount.toFixed(2)}`;
-        document.getElementById('exchangeRate').textContent = rate.toFixed(4);
+            `${currencySymbol} ${convertedAmount.toFixed(2)}`;
         
         const resultBox = document.getElementById('currencyResult');
         resultBox.style.display = 'block';

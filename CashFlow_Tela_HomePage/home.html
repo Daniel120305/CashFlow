@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>💰 Controle Financeiro</h1>
+            <h1>Controle Financeiro</h1>
             <p>Gerencie suas finanças de forma inteligente</p>
         </header>
 
@@ -21,15 +21,15 @@
         <div id="dashboard" class="tab-content active">
             <section class="summary">
                 <div class="card">
-                    <h3>💵 Receitas</h3>
+                    <h3> Receitas</h3>
                     <p class="income-total">R$ 0,00</p>
                 </div>
                 <div class="card">
-                    <h3>💸 Despesas</h3>
+                    <h3>Despesas</h3>
                     <p class="expense-total">R$ 0,00</p>
                 </div>
                 <div class="card balance-card">
-                    <h3>💳 Saldo</h3>
+                    <h3>Saldo</h3>
                     <p class="balance-total">R$ 0,00</p>
                 </div>
             </section>
@@ -265,6 +265,11 @@
                         </select>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="exchangeRate">Taxa de Câmbio (1 <span id="fromCurrencySymbol">USD</span> = ):</label>
+                        <input type="number" id="exchangeRate" step="0.0001" placeholder="5.50">
+                    </div>
+                    
                     <button class="btn-primary" onclick="financeManager.convertCurrency()">Converter</button>
                     
                     <div id="currencyResult" class="result-box" style="display: none;">
@@ -272,10 +277,6 @@
                         <div class="result-item total">
                             <span>Valor Convertido:</span>
                             <span id="convertedAmount">$ 0,00</span>
-                        </div>
-                        <div class="result-item">
-                            <span>Taxa Utilizada:</span>
-                            <span id="exchangeRate">1.00</span>
                         </div>
                     </div>
                 </div>
