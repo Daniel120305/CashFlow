@@ -168,5 +168,5 @@ document.querySelector('form').addEventListener('submit', function(e) {
     }
     
     alert('Dados pessoais salvos com sucesso! Redirecionando para o próximo passo...');
-    window.location.href = 'endereco.html';
+    window.location.href = '../CashFlow_Tela_de_Cadastro/endereco.html';
 });

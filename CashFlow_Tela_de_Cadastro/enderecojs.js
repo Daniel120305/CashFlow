@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnAnterior = document.querySelector('.btn-secondary');
     btnAnterior.addEventListener('click', function () {
         // Aqui você pode redirecionar para a página anterior ou modificar o DOM
-        window.location.href = 'dadospessoais.html'; // Exemplo de redirecionamento
+        window.location.href = '../CashFlow_Tela_de_Cadastro/dadospessoais.html'; // Exemplo de redirecionamento
     });
 
     // Validação do formulário

@@ -100,6 +100,7 @@ form.addEventListener('submit', async (e) => {
             
             setTimeout(() => {
                 alert(`🚀 Bem-vindo ao Cash Flow!\n\n✨ Redirecionando para o dashboard...\n\n💡 Credenciais de teste disponíveis:\n• admin@cashflow.com / 123456\n• usuario@demo.com / demo123\n• teste@cashflow.com / teste123`);
+                window.location.href = '../CashFlow_Tela_HomePage/home.html';
             }, 1500);
             
         } else {
@@ -143,7 +144,6 @@ document.addEventListener('keydown', (e) => {
         showMessage(successMsg, '⚡ Demo preenchido! Pressione Enter para entrar.');
     }
 });
-
 // Dicas no console
 console.log('%c🚀 Cash Flow Login', 'background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 12px 24px; border-radius: 8px; font-size: 16px; font-weight: bold;');
 console.log('%c💡 Pressione Ctrl+Q para demo rápido!', 'background: #1a1a3e; color: #4facfe; padding: 8px 16px; border-radius: 6px; font-weight: bold;');
