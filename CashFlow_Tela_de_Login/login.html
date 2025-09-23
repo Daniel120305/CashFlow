@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow - Login</title>
+    <link rel="stylesheet" href="loginStyle.css">
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="info-side">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <div class="logo-text">Cash Flow</div>
+        </div>
+        
+        <div class="hero-content">
+            <h1>Transforme suas finanças</h1>
+            <p>Gerencie seu dinheiro de forma inteligente e tome decisões financeiras mais assertivas com nossa plataforma completa.</p>
+            
+            <ul class="features">
+                <li>Controle total de receitas e despesas</li>
+                <li>Relatórios inteligentes e insights</li>
+                <li>Metas financeiras personalizadas</li>
+                <li>Segurança bancária de dados</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="login-side">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Bem-vindo de volta</h2>
+                <p>Entre na sua conta para continuar</p>
+            </div>
+            
+            <div class="message error-message" id="errorMessage"></div>
+            <div class="message success-message" id="successMessage"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="input-field" 
+                            placeholder=" "
+                            required
+                        >
+                        <!-- <div class="input-icon"><img src="icone email.png" alt=""></div> -->
+                        <label class="floating-label">E-mail</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="input-field" 
+                            placeholder=" "
+                            required
+                        >
+                        <!-- <div class="input-icon"><img src="icone senha.png" alt=""></div> -->
+                        <label class="floating-label">Senha</label>
+                        <button type="button" class="password-toggle" onclick="togglePassword()"></button>
+                    </div>
+                </div>
+                
+                <div class="remember-forgot">
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="remember">
+                        <div class="custom-checkbox"></div>
+                        <span class="checkbox-label">Lembrar de mim</span>
+                    </label>
+                    <a href="#" class="forgot-link" onclick="showForgotPassword()">Esqueceu a senha?</a>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    Entrar na conta
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>ou</span>
+            </div>
+            
+            <div class="signup-link">
+                Não tem uma conta?
+                <a href="../CashFlow_Tela_de_Cadastro/dadospessoais.html" onclick="goToSignup()">Criar conta gratuita</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="loginjs.js"></script>
+</body>
+</html>
