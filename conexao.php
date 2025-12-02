@@ -3,7 +3,7 @@ $host = "localhost";
 $usuario = "root";
 $senha = "";
 $banco = "cashflow";
-$port = 3307;
+$port = 3308;
 
 $conn = new mysqli($host, $usuario, $senha, $banco, $port);
 
