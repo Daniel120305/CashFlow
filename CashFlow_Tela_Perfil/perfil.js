@@ -33,14 +33,6 @@ document.addEventListener("DOMContentLoaded", loadUserName);
 
 
 // --- Opções do menu ---
-document.getElementById("settingsBtn").onclick = () => {
-    alert("Abrir Configurações...");
-};
-
-document.getElementById("editProfileBtn").onclick = () => {
-
-};
-
 document.getElementById("logoutBtn").onclick = () => {
     localStorage.clear();
     window.location.href = "login.html";

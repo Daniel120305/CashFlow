@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Em construção | Lançamento em breve</title>
+    <meta name="description" content="Esta página está em construção e será lançada em breve." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="config.css" />
+</head>
+
+<body>
+    <main class="container" role="main" aria-labelledby="titulo">
+        <section class="card">
+            <header class="card__header">
+                <span class="badge" aria-hidden="true">🚧</span>
+                <h1 id="titulo">Página em construção</h1>
+                <p class="subtitle">Estamos preparando algo especial. Em breve será lançada.</p>
+            </header>
+
+            <div class="progress" aria-label="Progresso do lançamento">
+                <div class="progress__bar" style="width: 65%" aria-hidden="true"></div>
+                <span class="progress__text">65% completo</span>
+            </div>
+
+            <div class="actions">
+                <a class="btn" href="../CashFlow_Tela_HomePage/home.html" aria-disabled="true">Voltar para o site</a>
+                <p class="hint">
+                    Precisa de ajuda? Entre em contato pelo e-mail: <strong>suportecashflow@gmail.com</strong>
+                </p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>
+                © <span id="ano"></span> — Lançamento em breve.
+            </p>
+        </footer>
+    </main>
+
+    <script>
+        // Atualiza o ano automaticamente
+        document.getElementById('ano').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
