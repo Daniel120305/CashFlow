@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil do Usuário</title>
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<header>
+    <div class="user-menu">
+        <div class="user-icon" id="userIcon">
+            👤
+        </div>
+
+        <div class="user-dropdown" id="userDropdown">
+            <a class="user-name" id="userName">Usuário</a>
+            <hr>
+            <a href="#" id="settingsBtn">⚙️ Configurações</a>
+            <a href="../CashFlow_Tela_HomePage/home.html" id="editProfileBtn">🏠 Home</a>
+            <a href="../CashFlow_Tela_de_Login/login.html" id="logoutBtn" class="logout">🚪 Logout</a>
+        </div>
+    </div>
+</header>
+
+<!-- Conteúdo da página -->
+<div class="container">
+    <h1>Perfil do Usuário</h1>
+    <p class="subtitle">Atualize suas informações pessoais e financeiras</p>
+
+    <form class="profile-form">
+        <fieldset>
+            <legend>Informações Pessoais</legend>
+            <label>Nome completo:
+                <input type="text" name="nome" required>
+            </label>
+            <label>CPF:
+                <input type="text" name="cpf" required>
+            </label>
+            <label>Data de nascimento:
+                <input type="date" name="nascimento" required>
+            </label>
+            <label>Telefone celular:
+                <input type="tel" name="telefone" required>
+            </label>
+            <label>Email:
+                <input type="email" name="email" required>
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Endereço</legend>
+            <label>CEP:
+                <input type="text" name="cep" required>
+            </label>
+            <label>Logradouro:
+                <input type="text" name="logradouro" required>
+            </label>
+            <label>Complemento:
+                <input type="text" name="complemento">
+            </label>
+            <label>Bairro:
+                <input type="text" name="bairro" required>
+            </label>
+            <label>Cidade:
+                <input type="text" name="cidade" required>
+            </label>
+            <label>Estado:
+                <select name="estado" required>
+                    <option value="">Selecione</option>
+                    <option value="DF">DF</option>
+                    <option value="SP">SP</option>
+                    <option value="RJ">RJ</option>
+                    <option value="MG">MG</option>
+                    <!-- Adicione outros estados -->
+                </select>
+            </label>
+            <label>Tipo de residência:
+                <select name="tipo_residencia" required>
+                    <option value="">Selecione</option>
+                    <option value="casa">Casa</option>
+                    <option value="apartamento">Apartamento</option>
+                    <option value="kitnet">Kitnet</option>
+                    <option value="studio">Studio</option>
+                    <option value="sobrado">Sobrado</option>
+                    <option value="cobertura">Cobertura</option>
+                </select>
+            </label>
+            <label>Tempo de residência:
+                <input type="text" name="tempo_residencia" required>
+            </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Informações Financeiras</legend>
+            <label>Renda mensal:
+                <input type="text" id="renda" name="renda" placeholder="Ex.: R$ 3.500,00" required>
+            </label>
+            <label>Média de despesas mensal:
+                <input type="text" id="despesas" name="despesas" placeholder="Ex.: R$ 2.100,00" required>
+            </label>
+            <label>Tipo de investimento:
+                <select name="tipo_investimento" required>
+                    <option value="">Selecione</option>
+                    <option value="conservador">Conservador</option>
+                    <option value="moderado">Moderado</option>
+                    <option value="arrojado">Arrojado</option>
+                    <option value="agressivo">Agressivo</option>
+                </select>
+            </label>
+            <label>Faixa de investimento:
+                <select name="faixa_investimento" required>
+                    <option value="">Selecione</option>
+                    <option value="ate-1000">Até R$ 1.000</option>
+                    <option value="1000-5000">R$ 1.000 - R$ 5.000</option>
+                    <option value="5000-10000">R$ 5.000 - R$ 10.000</option>
+                    <option value="10000-50000">R$ 10.000 - R$ 50.000</option>
+                    <option value="acima-50000">Acima de R$ 50.000</option>
+                </select>
+            </label>
+        </fieldset>
+
+        <button type="submit">Salvar Informações</button>
+    </form>
+</div>
+<script src="perfil.js"></script>
+</body>
+
+</html>

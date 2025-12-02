@@ -98,8 +98,32 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Se tudo estiver válido, prosseguir
-        alert('Endereço salvo com sucesso! Redirecionando para a finalização...');
-        window.location.href = 'finalizacao.html';
+       if (!isValid) {
+    const firstError = document.querySelector('.error-message');
+    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+}
+
+// Enviar dados para o backend
+const formData = new FormData(form);
+
+fetch("cadastro_etapa2.php", {
+    method: "POST",
+    body: formData
+})
+.then(res => res.json())
+.then(result => {
+    if (result.status === "success") {
+        alert("✅ Endereço salvo com sucesso! Redirecionando para a finalização...");
+        window.location.href = "finalizacao.html"; // Etapa 3
+    } else {
+        alert("❌ " + result.message);
+    }
+})
+.catch(err => {
+    alert("⚠️ Erro no servidor. Tente novamente.");
+});
+
     });
 
     // Adicionar máscara para o CEP

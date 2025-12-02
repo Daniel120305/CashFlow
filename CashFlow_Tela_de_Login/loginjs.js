@@ -17,7 +17,7 @@ const testCredentials = [
 function togglePassword() {
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.type = type;
-    
+
     const toggle = document.querySelector('.password-toggle');
     toggle.textContent = type === 'password' ? 'icone senha.png' : '🙈';
 }
@@ -54,74 +54,90 @@ function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// Autenticar usuário
+// Autenticar usuário via PHP + MySQL
 async function authenticate(email, password) {
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    return testCredentials.some(cred => 
-        cred.email === email && cred.password === password
-    );
+    try {
+        const response = await fetch("login.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `email=${encodeURIComponent(email)}&senha=${encodeURIComponent(password)}`
+        });
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        return { status: "error", message: "Erro ao conectar com o servidor." };
+    }
 }
+
 
 // Manipular submit do formulário
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
-    
+
     hideMessages();
-    
+
     // Validações
     if (!email || !password) {
         showMessage(errorMsg, '📧 Por favor, preencha todos os campos.');
         return;
     }
-    
+
     if (!isValidEmail(email)) {
         showMessage(errorMsg, '❌ Por favor, digite um e-mail válido.');
         emailInput.focus();
         return;
     }
-    
+
     if (password.length < 6) {
         showMessage(errorMsg, '🔒 A senha deve ter pelo menos 6 caracteres.');
         passwordInput.focus();
         return;
     }
-    
+
     try {
         setLoading(true);
-        
-        const isAuth = await authenticate(email, password);
-        
-        if (isAuth) {
-            showMessage(successMsg, '🎉 Login realizado com sucesso! Redirecionando...');
-            
+
+        const result = await authenticate(email, password); // agora retorna objeto
+
+        if (result.status === "success") {
+            // Salva o ID do usuário no localStorage
+            localStorage.setItem("user_id", result.user_id);
+
+            // (Opcional) também pode salvar o nome para exibir rápido
+            localStorage.setItem("username", result.username);
+
+            showMessage(successMsg, result.message);
+
             setTimeout(() => {
-                alert(`🚀 Bem-vindo ao Cash Flow!\n\n✨ Redirecionando para o dashboard...\n\n💡 Credenciais de teste disponíveis:\n• admin@cashflow.com / 123456\n• usuario@demo.com / demo123\n• teste@cashflow.com / teste123`);
-                window.location.href = '../CashFlow_Tela_HomePage/home.html';
+                window.location.href = "../CashFlow_Tela_HomePage/home.html";
             }, 1500);
-            
+
         } else {
-            showMessage(errorMsg, '❌ E-mail ou senha incorretos. Verifique suas credenciais.');
+            showMessage(errorMsg, result.message || '❌ E-mail ou senha incorretos.');
             passwordInput.focus();
         }
-        
+
     } catch (error) {
         showMessage(errorMsg, '⚠️ Erro no servidor. Tente novamente em alguns instantes.');
     } finally {
         setLoading(false);
     }
+
 });
 
 // Animações nos inputs
 document.querySelectorAll('.input-field').forEach(input => {
-    input.addEventListener('focus', function() {
+    input.addEventListener('focus', function () {
         this.parentElement.style.transform = 'scale(1.02)';
     });
-    
-    input.addEventListener('blur', function() {
+
+    input.addEventListener('blur', function () {
         this.parentElement.style.transform = 'scale(1)';
     });
 });

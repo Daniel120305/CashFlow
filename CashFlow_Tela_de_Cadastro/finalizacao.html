@@ -1,96 +1,170 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastre-se no Cash Flow</title>
-    <link rel="stylesheet" href="finalizacao.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finalização do Cadastro - Cash Flow</title>
+  <link rel="stylesheet" href="finalizacao.css"/>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Cadastre-se no Cash Flow</h1>
-            <p>Sua jornada financeira começa aqui. Preencha os dados abaixo para criar sua conta.</p>
-        </div>
-
-        <div class="progress-bar">
-            <div class="step completed">
-                <div class="step-number">✓</div>
-                <div class="step-label">Dados Pessoais</div>
-            </div>
-            <div class="step-connector active"></div>
-            <div class="step completed">
-                <div class="step-number">✓</div>
-                <div class="step-label">Endereço</div>
-            </div>
-            <div class="step-connector active"></div>
-            <div class="step active">
-                <div class="step-number">3</div>
-                <div class="step-label">Finalização</div>
-            </div>
-        </div>
-
-        <div class="form-container">
-            <div class="section-title">Dados Adicionais</div>
-            
-            <form id="cadastroForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="renda">Renda Mensal</label>
-                        <input type="text" id="renda" placeholder="Digite sua renda">
-                    </div>
-                    <div class="form-group">
-                        <label for="despesas">Média de Despesas Mensal</label>
-                        <input type="text" id="despesas" placeholder="Digite suas despesas">
-                    </div>
-                </div>
-
-                <div class="checkbox-container idade-container">
-                    <input type="checkbox" id="menor-18">
-                    <label for="menor-18">Menor de 18 anos</label>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="tipo-investimento">Tipo de Investimento</label>
-                        <select id="tipo-investimento">
-                            <option value="">Selecione</option>
-                            <option value="conservador">Conservador</option>
-                            <option value="moderado">Moderado</option>
-                            <option value="arrojado">Arrojado</option>
-                            <option value="agressivo">Agressivo</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="faixa-investimento">Faixa de Investimento</label>
-                        <select id="faixa-investimento">
-                            <option value="">Selecione</option>
-                            <option value="ate-1000">Até R$ 1.000</option>
-                            <option value="1000-5000">R$ 1.000 - R$ 5.000</option>
-                            <option value="5000-10000">R$ 5.000 - R$ 10.000</option>
-                            <option value="10000-50000">R$ 10.000 - R$ 50.000</option>
-                            <option value="acima-50000">Acima de R$ 50.000</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="objetivo">Objetivo</label>
-                    <textarea id="objetivo" rows="4" placeholder="Fale um pouco do seu objetivo em ter assistência financeira, suas dificuldades, facilidades, etc."></textarea>
-                </div>
-
-                <div class="login-link">
-                    <span>Já possui uma conta? <a href="#">Faça login</a></span>
-                </div>
-
-                <div class="form-buttons">
-                    <button type="button" class="btn-secondary" id="voltarBtn">Passo Anterior</button>
-                    <button type="submit" class="btn-finalizar" id="finalizarBtn">Finalizar Cadastro</button>
-                </div>
-            </form>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>Finalização do Cadastro</h1>
+      <p>Última etapa: informe seus dados financeiros para completar o cadastro.</p>
     </div>
 
-    <script src="finalizacaojs.js"></script>
+    <div class="progress-bar">
+      <div class="step completed"><div class="step-number">✓</div><div class="step-label">Dados Pessoais</div></div>
+      <div class="step-connector active"></div>
+      <div class="step completed"><div class="step-number">✓</div><div class="step-label">Endereço</div></div>
+      <div class="step-connector active"></div>
+      <div class="step active"><div class="step-number">3</div><div class="step-label">Financeiro</div></div>
+    </div>
+
+    <div class="form-container">
+      <form id="formFinanceiro" autocomplete="off" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="renda">Renda Mensal</label>
+            <input type="text" id="renda" name="renda" placeholder="Ex.: R$ 3.500,00" required>
+          </div>
+          <div class="form-group">
+            <label for="despesas">Média de Despesas Mensal</label>
+            <input type="text" id="despesas" name="despesas" placeholder="Ex.: R$ 2.100,00" required>
+          </div>
+        </div>
+
+        <div class="checkbox-container idade-container">
+          <input type="checkbox" id="menor_18" name="menor_18" value="1">
+          <label for="menor_18">Menor de 18 anos</label>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipo_investimento">Tipo de Investimento</label>
+            <select id="tipo_investimento" name="tipo_investimento" required>
+              <option value="">Selecione</option>
+              <option value="conservador">Conservador</option>
+              <option value="moderado">Moderado</option>
+              <option value="arrojado">Arrojado</option>
+              <option value="agressivo">Agressivo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="faixa_investimento">Faixa de Investimento</label>
+            <select id="faixa_investimento" name="faixa_investimento" required>
+              <option value="">Selecione</option>
+              <option value="ate-1000">Até R$ 1.000</option>
+              <option value="1000-5000">R$ 1.000 - R$ 5.000</option>
+              <option value="5000-10000">R$ 5.000 - R$ 10.000</option>
+              <option value="10000-50000">R$ 10.000 - R$ 50.000</option>
+              <option value="acima-50000">Acima de R$ 50.000</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          <button type="button" class="btn-secondary" id="voltarBtn">Passo Anterior</button>
+          <!-- IMPORTANTE: type="button" impede envio padrão -->
+          <button type="button" class="btn-finalizar" id="finalizarBtn">Finalizar Cadastro</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS INLINE para evitar qualquer problema de caminho -->
+  <script>
+  (function() {
+    console.log("🔥 JS inline da etapa 3 carregado");
+
+    const form = document.getElementById("formFinanceiro");
+    const voltarBtn = document.getElementById("voltarBtn");
+    const finalizarBtn = document.getElementById("finalizarBtn");
+    const rendaInput = document.getElementById("renda");
+    const despesasInput = document.getElementById("despesas");
+
+    // Máscara BR de moeda (simples)
+    function maskMoney(el) {
+      el.addEventListener("input", () => {
+        let v = el.value.replace(/\D/g, "");
+        if (!v) { el.value = ""; return; }
+        v = (parseInt(v, 10) / 100).toFixed(2);
+        v = v.replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        el.value = "R$ " + v;
+      });
+    }
+    maskMoney(rendaInput);
+    maskMoney(despesasInput);
+
+    // Normaliza "R$ 1.234,56" -> "1234.56"
+    function brToDecimal(str) {
+      if (!str) return "";
+      return str.toString()
+        .replace(/[^0-9,.-]/g, "")  // tira tudo que não é número/virgula/ponto/sinal
+        .replace(/\./g, "")         // remove separador de milhar
+        .replace(",", ".");         // troca decimal
+    }
+
+    // Evita submit padrão (extra "airbag")
+    form.addEventListener("submit", (e) => e.preventDefault());
+
+    // Voltar
+    voltarBtn.addEventListener("click", () => {
+      window.location.href = "endereco.html";
+    });
+
+    // Finalizar (ENVIA VIA FETCH)
+    finalizarBtn.addEventListener("click", async () => {
+      // Validação mínima
+      const renda = rendaInput.value.trim();
+      const despesas = despesasInput.value.trim();
+      const tipoInv = document.getElementById("tipo_investimento").value.trim();
+      const faixaInv = document.getElementById("faixa_investimento").value.trim();
+
+      if (!renda || !despesas || !tipoInv || !faixaInv) {
+        alert("Preencha todos os campos obrigatórios.");
+        return;
+      }
+
+      // Monta FormData do formulário
+      const fd = new FormData(form);
+
+      // Também envio normalizado (PHP normaliza de novo por segurança)
+      fd.set("renda", brToDecimal(renda));
+      fd.set("despesas", brToDecimal(despesas));
+
+      finalizarBtn.disabled = true;
+      finalizarBtn.textContent = "Finalizando...";
+
+      try {
+        // Use caminho ABSOLUTO para não depender de path relativo
+        const resp = await fetch("../CashFlow_Tela_de_Cadastro/cadastro_etapa3.php", {
+          method: "POST",
+          body: fd
+        });
+
+        // Se o servidor responder HTML por erro, evita crash no .json()
+        const text = await resp.text();
+        let data;
+        try { data = JSON.parse(text); } catch { data = { status: "error", message: text || "Resposta inválida do servidor." }; }
+
+        console.log("📡 Resposta:", data);
+
+        if (data.status === "success") {
+          alert("🎉 " + data.message);
+          window.location.href = "../CashFlow_Tela_de_Login/login.html";
+        } else {
+          alert("❌ " + (data.message || "Falha ao salvar."));
+        }
+      } catch (e) {
+        console.error(e);
+        alert("⚠️ Erro no servidor. Tente novamente.");
+      } finally {
+        finalizarBtn.disabled = false;
+        finalizarBtn.textContent = "Finalizar Cadastro";
+      }
+    });
+  })();
+  </script>
 </body>
 </html>

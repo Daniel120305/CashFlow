@@ -25,7 +25,7 @@ class FinanceManager {
     switchTab(tabName) {
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-        
+
         document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
         document.getElementById(tabName).classList.add('active');
     }
@@ -57,7 +57,7 @@ class FinanceManager {
     autoSetType(category) {
         const incomeCategories = ['salario', 'freelance', 'investimentos', 'outros-receitas'];
         const typeSelect = document.getElementById('type');
-        
+
         if (incomeCategories.includes(category)) {
             typeSelect.value = 'income';
         } else if (category && !incomeCategories.includes(category)) {
@@ -112,7 +112,7 @@ class FinanceManager {
             animation: slideIn 0.3s ease;
         `;
         notification.textContent = message;
-        
+
         const style = document.createElement('style');
         style.textContent = `
             @keyframes slideIn {
@@ -121,9 +121,9 @@ class FinanceManager {
             }
         `;
         document.head.appendChild(style);
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.remove();
             style.remove();
@@ -163,17 +163,17 @@ class FinanceManager {
         const income = this.transactions
             .filter(t => t.type === 'income')
             .reduce((sum, t) => sum + t.amount, 0);
-        
+
         const expenses = this.transactions
             .filter(t => t.type === 'expense')
             .reduce((sum, t) => sum + t.amount, 0);
-        
+
         const balance = income - expenses;
 
         document.querySelector('.income-total').textContent = this.formatCurrency(income);
         document.querySelector('.expense-total').textContent = this.formatCurrency(expenses);
         document.querySelector('.balance-total').textContent = this.formatCurrency(balance);
-        
+
         const balanceElement = document.querySelector('.balance-total');
         if (balance >= 0) {
             balanceElement.style.color = '#48bb78';
@@ -223,9 +223,9 @@ class FinanceManager {
     updateChart() {
         const canvas = document.getElementById('categoryChart');
         const ctx = canvas.getContext('2d');
-        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         const categoryTotals = {};
         this.transactions.forEach(t => {
             if (!categoryTotals[t.category]) {
@@ -236,7 +236,7 @@ class FinanceManager {
 
         const categories = Object.keys(categoryTotals);
         const values = Object.values(categoryTotals);
-        
+
         if (categories.length === 0) {
             ctx.fillStyle = '#718096';
             ctx.font = '16px Arial';
@@ -261,26 +261,26 @@ class FinanceManager {
             ctx.font = '12px Arial';
             ctx.textAlign = 'center';
             ctx.fillText(
-                this.formatCategory(category).substring(0, 8) + '...', 
-                x + barWidth / 2, 
+                this.formatCategory(category).substring(0, 8) + '...',
+                x + barWidth / 2,
                 canvas.height - 20
             );
 
             ctx.fillText(
-                this.formatCurrency(categoryTotals[category]), 
-                x + barWidth / 2, 
+                this.formatCurrency(categoryTotals[category]),
+                x + barWidth / 2,
                 y - 5
             );
         });
     }
 
     // ========== FERRAMENTAS FINANCEIRAS ==========
-    
+
     calculateSalary() {
         const grossSalary = parseFloat(document.getElementById('grossSalary').value);
         const dependents = parseInt(document.getElementById('dependents').value) || 0;
         const healthPlan = parseFloat(document.getElementById('healthPlan').value) || 0;
-        
+
         if (!grossSalary || grossSalary <= 0) {
             alert('Por favor, insira um salário bruto válido!');
             return;
@@ -295,11 +295,11 @@ class FinanceManager {
         } else if (grossSalary <= 3856.94) {
             inss = 1320.00 * 0.075 + (2571.29 - 1320.00) * 0.09 + (grossSalary - 2571.29) * 0.12;
         } else if (grossSalary <= 7507.49) {
-            inss = 1320.00 * 0.075 + (2571.29 - 1320.00) * 0.09 + 
-                   (3856.94 - 2571.29) * 0.12 + (grossSalary - 3856.94) * 0.14;
+            inss = 1320.00 * 0.075 + (2571.29 - 1320.00) * 0.09 +
+                (3856.94 - 2571.29) * 0.12 + (grossSalary - 3856.94) * 0.14;
         } else {
-            inss = 1320.00 * 0.075 + (2571.29 - 1320.00) * 0.09 + 
-                   (3856.94 - 2571.29) * 0.12 + (7507.49 - 3856.94) * 0.14;
+            inss = 1320.00 * 0.075 + (2571.29 - 1320.00) * 0.09 +
+                (3856.94 - 2571.29) * 0.12 + (7507.49 - 3856.94) * 0.14;
         }
 
         // Base para cálculo do IRRF
@@ -328,7 +328,7 @@ class FinanceManager {
         document.getElementById('inssValue').textContent = this.formatCurrency(inss);
         document.getElementById('irrfValue').textContent = this.formatCurrency(irrf);
         document.getElementById('netSalary').textContent = this.formatCurrency(netSalary);
-        
+
         const resultBox = document.getElementById('salaryResult');
         resultBox.style.display = 'block';
     }
@@ -338,17 +338,17 @@ class FinanceManager {
         const monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value) || 0;
         const interestRate = parseFloat(document.getElementById('interestRate').value) || 0;
         const timePeriod = parseInt(document.getElementById('timePeriod').value) || 0;
-        
+
         if (initialAmount < 0 || monthlyContribution < 0 || interestRate < 0 || timePeriod <= 0) {
             alert('Por favor, insira valores válidos!');
             return;
         }
 
-        const monthlyRate = Math.pow(1 + interestRate / 100, 1/12) - 1;
+        const monthlyRate = Math.pow(1 + interestRate / 100, 1 / 12) - 1;
         const months = timePeriod * 12;
-        
+
         let futureValue = initialAmount * Math.pow(1 + monthlyRate, months);
-        
+
         if (monthlyContribution > 0) {
             futureValue += monthlyContribution * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate * (1 + monthlyRate));
         }
@@ -359,7 +359,7 @@ class FinanceManager {
         document.getElementById('totalInvested').textContent = this.formatCurrency(totalInvested);
         document.getElementById('interestEarned').textContent = this.formatCurrency(interestEarned);
         document.getElementById('finalAmount').textContent = this.formatCurrency(futureValue);
-        
+
         const resultBox = document.getElementById('interestResult');
         resultBox.style.display = 'block';
     }
@@ -368,23 +368,23 @@ class FinanceManager {
         const loanAmount = parseFloat(document.getElementById('loanAmount').value) || 0;
         const loanRate = parseFloat(document.getElementById('loanRate').value) || 0;
         const loanPeriod = parseInt(document.getElementById('loanPeriod').value) || 0;
-        
+
         if (loanAmount <= 0 || loanRate <= 0 || loanPeriod <= 0) {
             alert('Por favor, insira valores válidos!');
             return;
         }
 
         const monthlyRate = loanRate / 100;
-        const monthlyPayment = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, loanPeriod) / 
-                              (Math.pow(1 + monthlyRate, loanPeriod) - 1);
-        
+        const monthlyPayment = loanAmount * monthlyRate * Math.pow(1 + monthlyRate, loanPeriod) /
+            (Math.pow(1 + monthlyRate, loanPeriod) - 1);
+
         const totalPayment = monthlyPayment * loanPeriod;
         const totalInterest = totalPayment - loanAmount;
 
         document.getElementById('monthlyPayment').textContent = this.formatCurrency(monthlyPayment);
         document.getElementById('totalPayment').textContent = this.formatCurrency(totalPayment);
         document.getElementById('totalInterest').textContent = this.formatCurrency(totalInterest);
-        
+
         const resultBox = document.getElementById('loanResult');
         resultBox.style.display = 'block';
     }
@@ -394,7 +394,7 @@ class FinanceManager {
         const fromCurrency = document.getElementById('fromCurrency').value;
         const toCurrency = document.getElementById('toCurrency').value;
         const exchangeRate = parseFloat(document.getElementById('exchangeRate').value) || 0;
-        
+
         if (amount <= 0) {
             alert('Por favor, insira um valor válido!');
             return;
@@ -417,7 +417,7 @@ class FinanceManager {
         } else {
             // Se estiver convertendo de outra moeda para BRL, multiplica pelo câmbio
             convertedAmount = amount * exchangeRate;
-            
+
             // Se for conversão entre moedas estrangeiras (ex: USD para EUR)
             if (toCurrency !== 'BRL') {
                 // Primeiro converte para BRL, depois para a moeda destino usando o câmbio inverso
@@ -430,16 +430,16 @@ class FinanceManager {
 
         // Formatando o símbolo da moeda de destino
         let currencySymbol;
-        switch(toCurrency) {
+        switch (toCurrency) {
             case 'USD': currencySymbol = '$'; break;
             case 'EUR': currencySymbol = '€'; break;
             case 'GBP': currencySymbol = '£'; break;
             default: currencySymbol = 'R$';
         }
 
-        document.getElementById('convertedAmount').textContent = 
+        document.getElementById('convertedAmount').textContent =
             `${currencySymbol} ${convertedAmount.toFixed(2)}`;
-        
+
         const resultBox = document.getElementById('currencyResult');
         resultBox.style.display = 'block';
     }
@@ -487,6 +487,53 @@ class FinanceManager {
         }
     }
 }
+
+// --- Dropdown de usuário ---
+const userIcon = document.getElementById("userIcon");
+const userDropdown = document.getElementById("userDropdown");
+const userName = document.getElementById("userName");
+
+// Mostra/esconde o dropdown ao clicar no ícone
+userIcon.addEventListener("click", () => {
+    userDropdown.style.display =
+        userDropdown.style.display === "block" ? "none" : "block";
+});
+
+// Fecha dropdown se clicar fora
+document.addEventListener("click", (event) => {
+    if (!userIcon.contains(event.target) && !userDropdown.contains(event.target)) {
+        userDropdown.style.display = "none";
+    }
+});
+
+function loadUserName() {
+    const userNameElement = document.getElementById("userName");
+    const username = localStorage.getItem("username");
+
+    if (userNameElement && username) {
+        userNameElement.textContent = username;
+        userNameElement.style.color = "#333";
+        userNameElement.style.display = "block";
+        userNameElement.style.opacity = "1";
+        userNameElement.style.visibility = "visible";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadUserName);
+
+
+// --- Opções do menu ---
+document.getElementById("settingsBtn").onclick = () => {
+    alert("Abrir Configurações...");
+};
+
+
+
+document.getElementById("logoutBtn").onclick = () => {
+    localStorage.clear();
+    window.location.href = "login.html";
+};
+
 
 // Inicializar aplicação
 const financeManager = new FinanceManager();

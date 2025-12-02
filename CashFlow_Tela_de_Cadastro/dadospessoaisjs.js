@@ -167,6 +167,37 @@ document.querySelector('form').addEventListener('submit', function(e) {
         return;
     }
     
-    alert('Dados pessoais salvos com sucesso! Redirecionando para o próximo passo...');
-    window.location.href = '../CashFlow_Tela_de_Cadastro/endereco.html';
+   if (!isValid) {
+    const firstError = document.querySelector('.error-message');
+    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+}
+
+// Enviar via AJAX para o backend
+const formData = new FormData();
+formData.append("nome", document.getElementById('nome').value);
+formData.append("cpf", document.getElementById('cpf').value);
+formData.append("nascimento", document.getElementById('nascimento').value);
+formData.append("telefone", document.getElementById('telefone').value);
+formData.append("email", document.getElementById('email').value);
+formData.append("senha", document.getElementById('senha').value);
+formData.append("confirmar_senha", document.getElementById('confirmar-senha').value);
+
+fetch("cadastro_etapa1.php", {
+    method: "POST",
+    body: formData
+})
+.then(res => res.json())
+.then(result => {
+    if (result.status === "success") {
+        alert("✅ Etapa 1 concluída! Redirecionando...");
+        window.location.href = "../CashFlow_Tela_de_Cadastro/endereco.html";
+    } else {
+        alert("❌ " + result.message);
+    }
+})
+.catch(err => {
+    alert("⚠️ Erro no servidor. Tente novamente.");
+});
+
 });

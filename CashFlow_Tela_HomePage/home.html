@@ -9,9 +9,24 @@
 <body>
     <div class="container">
         <header>
-            <h1>Controle Financeiro</h1>
-            <p>Gerencie suas finanças de forma inteligente</p>
-        </header>
+    <h1>Controle Financeiro</h1>
+    <p>Gerencie suas finanças de forma inteligente</p>
+
+    <div class="user-menu">
+        <div class="user-icon" id="userIcon">
+            👤
+        </div>
+
+        <div class="user-dropdown" id="userDropdown">
+            <a class="user-name" id="userName">Usuário</a>
+            <hr>
+            <a href="#" id="settingsBtn">⚙️ Configurações</a>
+            <a href="../CashFlow_Tela_Perfil/perfil.html" id="editProfileBtn">📝 Editar Perfil</a>
+            <a href="../CashFlow_Tela_de_Login/login.html" id="logoutBtn" class="logout">🚪 Logout</a>
+        </div>
+    </div>
+</header>
+
 
         <nav class="navigation">
             <button class="nav-btn active" data-tab="dashboard">📊 Dashboard</button>
@@ -283,6 +298,7 @@
             </section>
         </div>
     </div>
+
 
     <script src="home.js"></script>
 </body>
